@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      width: 400px;
+      padding: 16px;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #1e1e1e;
+      color: #d4d4d4;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .tab-container {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .tab {
+      padding: 8px 16px;
+      background: #2c2c2c;
+      border-radius: 4px;
+      cursor: pointer;
+      color: #d4d4d4;
+      transition: background 0.3s;
+    }
+
+    .tab:hover {
+      background: #3a3a3a;
+    }
+
+    .tab.active {
+      background: #FF8C00;
+      color: #ffffff;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 8px;
+      border: 1px solid #3a3a3a;
+      border-radius: 4px;
+      resize: vertical;
+      background: #2c2c2c;
+      color: #d4d4d4;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 8px 16px;
+      background: #FF8C00;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-size: 14px;
+    }
+
+    button:hover:not(:disabled) {
+      background: #1d4ed8;
+    }
+
+    button:disabled {
+      background: #4f4f4f;
+      cursor: not-allowed;
+    }
+
+    button.delete {
+      background: #dc2626;
+      padding: 4px 8px;
+      font-size: 12px;
+    }
+
+    #results, #history {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .query-link {
+      padding: 8px;
+      background: #2c2c2c;
+      border-radius: 4px;
+      text-decoration: none;
+      color: #d4d4d4;
+      transition: background 0.3s;
+      word-break: break-all;
+    }
+
+    .query-link:hover {
+      background: #3a3a3a;
+    }
+
+    .error {
+      color: #f87171;
+      padding: 8px;
+      background: #3a1f1f;
+      border-radius: 4px;
+    }
+
+    .history-item {
+      border: 1px solid #3a3a3a;
+      border-radius: 4px;
+      padding: 8px;
+      margin-bottom: 8px;
+      background: #2c2c2c;
+    }
+
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+
+    .history-description {
+      font-weight: 500;
+      margin-bottom: 4px;
+      color: #ffffff;
+    }
+
+    .history-queries {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .history-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    #clear-history {
+      align-self: flex-end;
+      background: #dc2626;
+    }
+
+    .settings-group {
+      background: #2c2c2c;
+      padding: 16px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+
+    .settings-group h3 {
+      margin: 0 0 12px 0;
+      color: #ffffff;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 4px;
+      color: #d4d4d4;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 8px;
+      background: #1e1e1e;
+      border: 1px solid #3a3a3a;
+      border-radius: 4px;
+      color: #d4d4d4;
+      font-family: monospace;
+    }
+
+    .api-key-status {
+      margin-top: 4px;
+      font-size: 12px;
+    }
+
+    .api-key-status.valid {
+      color: #34d399;
+    }
+
+    .api-key-status.invalid {
+      color: #f87171;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="tab-container">
+      <div class="tab active" data-tab="generate">Generate</div>
+      <div class="tab" data-tab="history">History</div>
+      <div class="tab" data-tab="settings">Settings</div>
+    </div>
+
+    <div id="generate-tab">
+      <textarea 
+        id="description" 
+        placeholder="Describe what you're looking for..."
+        aria-label="Search description"
+      ></textarea>
+      
+      <button id="generate" type="button">
+        Generate Dorks
+      </button>
+      
+      <div id="results"></div>
+    </div>
+    
+    <div id="history-tab" style="display: none;">
+      <button id="clear-history" type="button">Clear All History</button>
+      <div id="history"></div>
+    </div>
+  </div>
+
+  <div id="settings-tab" style="display: none;">
+    <div class="settings-group">
+      <h3>API Configuration</h3>
+      <div class="form-group">
+        <label for="api-key">Claude API Key</label>
+        <input 
+          type="password" 
+          id="api-key" 
+          placeholder="sk-ant-api03-..." 
+          spellcheck="false"
+          autocomplete="off"
+        />
+        <div id="api-key-status" class="api-key-status"></div>
+      </div>
+      <button id="save-api-key" type="button">Save API Key</button>
+    </div>
+  </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

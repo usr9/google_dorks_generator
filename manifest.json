@@ -1,0 +1,19 @@
+{
+    "manifest_version": 2,
+    "name": "Google Dorks Generator",
+    "version": "1.0",
+    "description": "Generate advanced Google search queries using Claude AI",
+    "permissions": [
+      "activeTab",
+      "storage",
+      "https://api.anthropic.com/*"
+    ],
+    "browser_action": {
+      "default_popup": "popup.html",
+      "default_title": "Generate Google Dorks"
+    },
+    "background": {
+      "scripts": ["background.js"],
+      "persistent": false
+    }
+  }
