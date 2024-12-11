@@ -19,7 +19,7 @@ Currently, the extension needs to be installed manually:
 
 1. Clone this repository:
 ```bash
-git clone https://github.com/usr9/google-dorks-generator.git
+git clone https://github.com/usr9/google_dorks_generator.git
 ```
 
 2. Load the extension in Firefox:
